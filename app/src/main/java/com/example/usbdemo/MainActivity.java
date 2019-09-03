@@ -16,11 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chice.scangun.ScanGun;
-import com.example.usbdemo.Observ.Boy;
-import com.example.usbdemo.Observ.Girl;
-import com.example.usbdemo.Observ.Observable;
-import com.example.usbdemo.Observ.Observer;
-import com.example.usbdemo.Observ.Postman;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
