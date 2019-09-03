@@ -2,12 +2,14 @@
 
 #### 介绍
 usb转串口测试工具,usbhook测试工具
+
 ####USB串口封装  
 调用方式  
-##1.初始化 (在application 或 需要开启串口的地方)   
+
+1.初始化 (在application 或 需要开启串口的地方)   
 UsbObservable.open(串口地址,波特率);  
 
-##2.接收串口数据  
+2.接收串口数据  
 UsbObservable.SubscribeOn(new android.serialport.Observer() {  
               @Override  
               public void resultByte(byte[] buff) {  
@@ -23,6 +25,6 @@ UsbObservable.SubscribeOn(new android.serialport.Observer() {
               }  
           });  
           
- ##3.程序退出后调用  
+ 3.程序退出后调用  
  UsbObservable.unRegisteredObserver();  
 
