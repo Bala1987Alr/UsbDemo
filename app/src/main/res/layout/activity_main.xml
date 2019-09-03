@@ -51,35 +51,118 @@
             android:layout_weight="1"
             android:text="清屏"
             android:layout_height="45dp" />
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="数据保存\t\t\t 请勾选下方保存格式,每刷一个码保存一条数据"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/qr_save_onoff"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="开"
+            android:layout_height="45dp" />
         <CheckBox
             android:id="@+id/qr_save"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="保存"
+            android:text="UTF-8"
+            android:layout_height="45dp" />
+        <CheckBox
+            android:id="@+id/qr_save_hex"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="HEX"
+            android:layout_height="45dp" />
+        <CheckBox
+            android:id="@+id/qr_save_byte"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="BYTE"
+            android:layout_height="45dp" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="自动发送   勾选下方自动发送,将自动发送数据"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/qr_auto_send"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="开关"
+            android:layout_height="45dp" />
+        <CheckBox
+            android:id="@+id/qr_auto_one"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="500"
+            android:layout_height="45dp" />
+        <CheckBox
+            android:id="@+id/qr_auto_two"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="1000"
+            android:layout_height="45dp" />
+        <CheckBox
+            android:id="@+id/qr_auto_three"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="2000"
             android:layout_height="45dp" />
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:text="灯测试"
+        android:layout_height="45dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/checkbox_buguangdeng"
+            android:layout_width="wrap_content"
+            android:text="补光灯"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:text="接收"
+        android:layout_height="45dp" />
         <TextView
             android:id="@+id/qr_content"
             android:scrollbars="vertical"
             android:fadeScrollbars="false"
             android:scrollbarFadeDuration="200"
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
-
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+            android:layout_height="400dp" />
     <TextView
         android:layout_width="wrap_content"
         android:gravity="center"
-        android:text="补光灯测试"
+        android:text="发送"
         android:layout_height="45dp" />
-    <CheckBox
-        android:id="@+id/checkbox_buguangdeng"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/qr_send_content"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:hint="输入需要测试的字符串"
+        android:scrollbarFadeDuration="200"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
+
+
 
 
 </LinearLayout>

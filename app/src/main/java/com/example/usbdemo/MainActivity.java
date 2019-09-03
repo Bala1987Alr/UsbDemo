@@ -20,14 +20,23 @@ import com.chice.scangun.ScanGun;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText qr_address;
     private EditText qr_btl;
+    private EditText qr_send_content;
     TextView qr_content;
     CheckBox qr_save;
+    CheckBox qr_save_hex;
+    CheckBox qr_save_byte;
+    CheckBox qr_auto_send;
+    CheckBox qr_save_onoff;
+    CheckBox qr_auto_one;
+    CheckBox qr_auto_two;
+    CheckBox qr_auto_three;
     TextView qr_clear;
     Button qr_open,qr_close;
 //    UsbObservable UsbObservable = new UsbObservable();
@@ -51,17 +60,83 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean  isSave =false;
+    private boolean  auto =false;
+    private boolean UTF8= false;
+    private boolean HEX= false;
+    private boolean BYTE= false;
     private void initView(){
 
 
+        qr_send_content = findViewById(R.id.qr_send_content);
         // 串口测试UI
         qr_address = findViewById(R.id.qr_address);
         qr_save = findViewById(R.id.qr_save);
         qr_save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isSave = isChecked;
+                UTF8 = isChecked;
+            }
+        });
+        qr_save_hex = findViewById(R.id.qr_save_hex);
+        qr_save_hex.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                HEX = isChecked;
+            }
+        });
 
+        qr_save_byte = findViewById(R.id.qr_save_byte);
+        qr_save_byte.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                BYTE = isChecked;
+
+
+            }
+        });
+        qr_save_onoff = findViewById(R.id.qr_save_onoff);
+        qr_save_onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isSave = isChecked;
+            }
+        });
+
+        qr_auto_send = findViewById(R.id.qr_auto_send);
+        qr_auto_send.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                auto = isChecked;
+                sendData();
+            }
+        });
+
+        qr_auto_one = findViewById(R.id.qr_auto_one);
+        qr_auto_one.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) se = 500;else se = 0;
+            }
+        });
+
+        qr_auto_two = findViewById(R.id.qr_auto_two);
+        qr_auto_two.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                se = 1000;else se = 0;
+            }
+        });
+        qr_auto_three = findViewById(R.id.qr_auto_three);
+        qr_auto_three.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    se = 2000;
+                }
+                else {
+                    se = 0;
+                }
             }
         });
         qr_btl = findViewById(R.id.qr_btl);
@@ -100,6 +175,31 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private int se = 1000;
+    private void sendData(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(auto){
+                    if (!TextUtils.isEmpty(qr_send_content.getText().toString())){
+                        UsbObservable.writeData(qr_send_content.getText().toString().getBytes());
+                    }
+                    try {
+                        if (se == 0){
+                            se = 500;
+                        }
+                        Thread.sleep(se);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+
+
     String msgNew  ;
     /**
      * usb串口测试
@@ -115,7 +215,17 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if (isSave){
-                    UsbObservable.writeFile(s);
+                    if (UTF8){
+                        UsbObservable.writeFile(s,"UTF8");
+                    }
+                    if (HEX){
+                        String hex = UsbObservable.byteArrayToHexString(buff);
+                        UsbObservable.writeFile(hex,"HEX");
+                    }
+                    if (BYTE){
+                        UsbObservable.writeFileByte(buff,"BYTE");
+                    }
+
                 }
                 msgNew  = s+"\n"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"\n";
 

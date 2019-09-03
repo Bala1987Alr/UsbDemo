@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,6 +70,20 @@ public class UsbObservable{
 
     }
 
+    /**
+     * 发送数据
+     * @param buff
+     */
+    public static void writeData(byte[] buff){
+        if (outputStream!= null){
+            try {
+                outputStream.write(buff);
+            } catch (IOException e) {
+                e.printStackTrace();
+                usbObservableeee.usbTips(e.getMessage());
+            }
+        }
+    }
 
 
     // 10k字节
@@ -136,10 +151,10 @@ public class UsbObservable{
 
 
     static File file ;
-    public static void writeFile(String  content) {
+    public static void writeFile(String  content,String name) {
         BufferedWriter bw = null;
         try {
-            file = new File(Environment.getExternalStorageDirectory().getPath()+"/usbSerial/"+System.currentTimeMillis()+".txt");
+            file = new File(Environment.getExternalStorageDirectory().getPath()+"/usbSerial/"+System.currentTimeMillis()+name+".txt");
             if (!file.getParentFile().exists()){
                 file.getParentFile().mkdirs();
             }
@@ -154,7 +169,22 @@ public class UsbObservable{
             e.printStackTrace();
         }
     }
-
+    public static void writeFileByte(byte[]  buff,String name) {
+        try {
+            file = new File(Environment.getExternalStorageDirectory().getPath()+"/usbSerial/"+System.currentTimeMillis()+name+".txt");
+            if (!file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsoluteFile(),true);
+            fileOutputStream.write(buff);
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static String byteArrayToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {
