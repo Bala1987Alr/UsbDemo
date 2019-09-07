@@ -91,7 +91,7 @@ public class SerialPort {
 //		}
 		
 		mSerialPortPath = device.getAbsolutePath();
-		mFd = open(mSerialPortPath, baudrate);
+		mFd = open(mSerialPortPath, baudrate,8);
 		if (mFd == null) {
 			Log.e(TAG, "native open returns null");
 			throw new IOException();
@@ -120,7 +120,7 @@ public class SerialPort {
 		}
 	}
 	// JNI
-	private native static FileDescriptor open(String path, int baudrate);
+	private native static FileDescriptor open(String path, int baudrate,int flag);
 	private native void close();
 	static {
 		System.loadLibrary("serial_port");
