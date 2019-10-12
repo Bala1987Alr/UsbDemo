@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     CheckBox qr_auto_three;
     TextView qr_clear;
     Button qr_open,qr_close;
-//    UsbObservable UsbObservable = new UsbObservable();
     /**
      * 补光灯开关  1开 0关
      * @param value
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 UTF8 = isChecked;
+                UsbObservable.writeData("asdfasfdasfdasdf".getBytes());
             }
         });
         qr_save_hex = findViewById(R.id.qr_save_hex);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 auto = isChecked;
-                sendData();
+//                sendData();
             }
         });
 
