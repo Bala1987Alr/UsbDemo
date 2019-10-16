@@ -88,7 +88,7 @@ public class SerialTools extends Thread{
 						for (int i = 0; i <length; i++) {
 							CMD += " ";
 							CMD +=(buffer[i]&0xff);
-							LogUtils.e( "接收到命令："+CMD);
+//							LogUtils.e( "接收到命令："+CMD);
 							stringBuffer .append(  "接收到命令："+CMD);
 							handler.obtainMessage(0x01,stringBuffer.toString()).sendToTarget();
 						}
@@ -105,7 +105,7 @@ public class SerialTools extends Thread{
 				Log.e(getClass().getName(), "-");
 			}
 		}
-		LogUtils.e( "通讯线程关闭");
+//		LogUtils.e( "通讯线程关闭");
 		stringBuffer .append(  "通讯线程关闭");
 		handler.obtainMessage(0x01, stringBuffer.toString()).sendToTarget();
 	}
@@ -119,7 +119,7 @@ public class SerialTools extends Thread{
 				for (int i = 0; i < byteArray.length; i++) {
 					CMD += " ";
 					CMD +=(byteArray[i]&0xff);
-					LogUtils.e( "发送命令："+CMD);
+//					LogUtils.e( "发送命令："+CMD);
 					stringBuffer .append(  "发送命令："+CMD);
 					handler.obtainMessage(0x01, stringBuffer.toString()).sendToTarget();
 				}
@@ -129,7 +129,7 @@ public class SerialTools extends Thread{
 				e.printStackTrace();
 			}
 		}else {
-			LogUtils.e( "-发送命令失败 串口未打开-");
+//			LogUtils.e( "-发送命令失败 串口未打开-");
 			stringBuffer .append(  "-发送命令失败 串口未打开");
 			handler.obtainMessage(0x01, stringBuffer.toString()).sendToTarget();
 		}

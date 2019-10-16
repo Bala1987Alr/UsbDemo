@@ -299,8 +299,16 @@ public class LogUtils {
             dateFormat.applyPattern("[yyyy-MM-dd HH:mm:ss]");
             String time = dateFormat.format(date);
             File file = new File(path);
-            if (!file.exists())
-                createDipPath(path);
+            if (!file.getParentFile().exists()){
+                file.mkdirs();
+            }
+            if (!file.exists()){
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             BufferedWriter out = null;
             try {
                 out = new BufferedWriter(new OutputStreamWriter(

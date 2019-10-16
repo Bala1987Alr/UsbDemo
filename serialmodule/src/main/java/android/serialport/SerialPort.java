@@ -50,7 +50,7 @@ public class SerialPort {
 		try {
 			creatSerialPort(new File(address),baudrate);
 			Log.e(getClass().getName(),"open serial success");
-			LogUtils.e("open serial success");
+//			LogUtils.e("open serial success");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
