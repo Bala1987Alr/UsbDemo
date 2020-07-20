@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText qr_address;
     private EditText qr_btl;
     private EditText qr_send_content;
-    private EditText nric,temp;
     String declaration_ID,entry;
     TextView qr_content;
     CheckBox qr_save;
@@ -244,8 +243,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     simpleDateFormat = new SimpleDateFormat(pattern);
                     date = simpleDateFormat.format(current_date);
-                    //instead of nric.getText().toString() later you can pass qrcode
-                    Call<List<UserData>> call = service.getUserData("",nric.getText().toString(),"",
+                    //pass QR code here to call API
+                    Call<List<UserData>> call = service.getUserData("",qrcode,"",
                             date,date,"",
                             "1","1","","false");
 
@@ -256,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                             UserData userData= response.body().get(0);
                             declaration_ID = userData.getDeclarationID();
                             entry=userData.getEntry();
+                            //Send temperature
                             sendTemp();
                         }
                         @Override
@@ -346,22 +346,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendTemp()
     {
+        String temp="37.7";// please pass temperature here
         simpleDateFormat = new SimpleDateFormat(pattern_mm);
         String date = simpleDateFormat.format(current_date);
         TreeMap<String,String> postData = new TreeMap<>();
         postData.put("DeclarationID",declaration_ID);
-        postData.put("Temperature","37.7"); // please pass temperature here
+        postData.put("Temperature",temp);
         postData.put("ManualTemperature","");
         postData.put("Ambient","");
         postData.put("LocationAPIKey","");
         postData.put("ScannedDateTime",date);
         if(entry.equalsIgnoreCase("N"))
         {
-            postData.put("ActionResult", "Please seek staff assistance - Entry Denied.Temperature "+temp.getText()+" within acceptable range");
+            postData.put("ActionResult", "Please seek staff assistance - Entry Denied.Temperature "+temp+" within acceptable range");
         }
-        else if (Integer.valueOf(temp.getText().toString().trim())> 37.5) {
+        else if (Float.valueOf(temp)> 37.5) {
 
-            postData.put("ActionResult", "Please seek staff assistance - Entry Denied. High Temperature "+temp.getText()+" detected");
+            postData.put("ActionResult", "Please seek staff assistance - Entry Denied. High Temperature "+temp+" detected");
         }
         else
         {
