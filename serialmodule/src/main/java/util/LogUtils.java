@@ -1,6 +1,4 @@
-package com.isport.www.serialmodule;
-
-
+package util;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,24 +14,17 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-/**
- * Log���ߣ�����android.util.Log�� tag�Զ���������ʽ:
- * customTagPrefix:className.methodName(Line:lineNumber),
- * customTagPrefixΪ��ʱֻ�����className.methodName(Line:lineNumber)��
- * http://blog.csdn.net/finddreams
- */
 public class LogUtils {
 
-    public static String customTagPrefix = "finddreams"; // �Զ���Tag��ǰ׺��������������
-    private static final boolean isSaveLog = true; // �Ƿ�ѱ�����־��SD����
+    public static String customTagPrefix = "finddreams";
+    private static final boolean isSaveLog = true;
     public static final String ROOT = Environment.getExternalStorageDirectory()
-            .getPath()+"/Sport/"; // SD���еĸ�Ŀ¼
+            .getPath()+"/Sport/";
     private static final String PATH_LOG_INFO = ROOT + "info/";
 
     private LogUtils() {
     }
 
-    // �����ӡ��־�����ͣ�Ĭ����true������Ϊfalse�򲻴�ӡ
     public static boolean allowD = true;
     public static boolean allowE = true;
     public static boolean allowEP = false;
@@ -43,20 +34,17 @@ public class LogUtils {
     public static boolean allowWtf = true;
 
     private static String generateTag(StackTraceElement caller) {
-        String tag = "%s.%s(Line:%d)"; // ռλ��
-        String callerClazzName = caller.getClassName(); // ��ȡ������
+        String tag = "%s.%s(Line:%d)";
+        String callerClazzName = caller.getClassName();
         callerClazzName = callerClazzName.substring(callerClazzName
                 .lastIndexOf(".") + 1);
         tag = String.format(tag, callerClazzName, caller.getMethodName(),
-                caller.getLineNumber()); // �滻
+                caller.getLineNumber());
         tag = TextUtils.isEmpty(customTagPrefix) ? tag : customTagPrefix + ":"
                 + tag;
         return tag;
     }
 
-    /**
-     * �Զ����logger
-     */
     public static CustomLogger customLogger;
 
     public interface CustomLogger {
@@ -331,8 +319,7 @@ public class LogUtils {
     
     
     /**
-     * �����ļ�·�� �ݹ鴴���ļ�
-     * 
+     *      *
      * @param file
      */
     public static void createDipPath(String file) {

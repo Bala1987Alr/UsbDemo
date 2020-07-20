@@ -8,20 +8,20 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- *  USB扫码   UsbHook HID-KBW  扫码器会将扫描出来的内容转化为键盘事件
- *   USB扫码大小写无法区分,包括键盘上的复合键无法区分
+ *  USB Scan code   UsbHook HID-KBW  The scanner will convert the scanned content into keyboard events
+ *   USBScanning case is indistinguishable, including compound keys on the keyboard
  *
- *   使用方式
+ *   How to use
  *  UsbHook usb = new UsbHook();
- *   usb.setUsbQRCListenner(this);// 创建监听
+ *   usb.setUsbQRCListenner(this);// Create listener
  *
  *
- *  在activity
+ *  in activity
  *  public boolean onKeyDown(int keyCode, KeyEvent event){
  *        UsbHook.keyCodeToNum(keyCode,event);
  *  }
  *
- *  读取成功回调,返回的是一条完整的二维码数据
+ *  Read the successful callback, the return is a complete two-dimensional code data
  *   @Override
  *     public void usbSucceed(String qrc) {
  *         Log.e(getClass().getName(),"qrc  log = "+qrc);
@@ -70,11 +70,11 @@ public class UsbHook {
     private boolean end = false;
 
     private LinkedList<Integer> keycodeArray = new LinkedList<>() ;
-    //判断头尾,拿完整的keycode集合
+    //Determine the head and tail, take the complete keycode collection
     public  void keyCodeToNum(int keycode, KeyEvent keyEvent) {
         Log.e(getClass().getName(),"keycode:"+keycode);
         keyCodeAction(keycode);
-        // 找头 找到后添加数据
+        // Find the data
         if (!head&&keycode == 143){
             keycodeArray.clear();
             head = true;
@@ -95,12 +95,12 @@ public class UsbHook {
             }
             Log.e(getClass().getName(),"end="+end);
             if (end){
-                // 找到数据
-                // 去掉后面三位
+                // Find data
+                // Remove the last three
                 for (int i = 0;i<keycodeArray.size()-3;i++){
                     keyCodeAction(keycodeArray.get(i));
                 }
-//            // 处理完成   回调接口
+//            // Processing completed Callback interface
                 if (usbQRCListenner!= null){
                     usbQRCListenner.usbSucceed(buffer.toString());
                 }
@@ -110,22 +110,19 @@ public class UsbHook {
             }
         }
 
-
-
-
     }
 
 
 
-    // keyCode 处理
+    // keyCode deal with
     private void keyCodeAction(int keyCode){
-        //检查shift键
+        //Check shift key
         if (keyCode == KeyEvent.KEYCODE_SHIFT_RIGHT || keyCode == KeyEvent.KEYCODE_SHIFT_LEFT) {
 //            if (keycode == KeyEvent.ACTION_DOWN) {
-                //按着shift键，表示大写
+                //Press the shift key to indicate uppercase
                 mCaps = true;
             } else {
-                //松开shift键，表示小写
+                //Release the shift key, which means lowercase
                 mCaps = false;
 //            }
         }
@@ -140,7 +137,7 @@ public class UsbHook {
         } else if ((keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9)) {
             buffer.append(keyCode - KeyEvent.KEYCODE_0);
         } else {
-            //暂不处理特殊符号
+            //Do not handle special symbols temporarily
 
 //                switch (keyCode){
 //                    case 7:
@@ -214,21 +211,21 @@ public class UsbHook {
 //                        }
 //                        break;
 //
-//                    case 55://"," 或者<
+//                    case 55://"," or<
 //                        if (mCaps) {
 //                            buffer.append("<");
 //                        } else {
 //                            buffer.append(",");
 //                        }
 //                        break;
-//                    case 56://"." 或者 >
+//                    case 56://"." or >
 //                        if (mCaps) {
 //                            buffer.append(">");
 //                        } else {
 //                            buffer.append(".");
 //                        }
 //                        break;
-//                    case 66:// 回车
+//                    case 66:// Carriage return
 //                        break;
 //                    case 69://"_" or "-"
 //                        if (mCaps) {

@@ -16,7 +16,7 @@
             android:layout_height="120dp"
             android:background="@android:color/background_light"
             android:gravity="center"
-            android:text="选择端口号"
+            android:text="Select port number"
             android:textColor="@android:color/background_dark"
             android:textSize="25sp" />
 
@@ -27,7 +27,7 @@
             android:layout_marginLeft="5dp"
             android:background="@android:color/background_light"
             android:gravity="center"
-            android:text="发送"
+            android:text="Send"
             android:textColor="@android:color/background_dark"
             android:textSize="25sp" />
     </LinearLayout>
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dip"
-        android:text="消息："
+        android:text="Result"
         android:textSize="18sp" />
 
     <EditText

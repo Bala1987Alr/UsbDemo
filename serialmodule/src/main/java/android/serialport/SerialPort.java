@@ -26,8 +26,6 @@ import java.io.OutputStream;
 
 import android.util.Log;
 
-import com.isport.www.serialmodule.LogUtils;
-
 public class SerialPort {
 
 	private static final String TAG = "SerialPort";
@@ -44,7 +42,7 @@ public class SerialPort {
 
 
 	/**
-	 * 打开串口
+	 * Open the serial port
 	 */
 	public  boolean createSerialPort(String address,int baudrate){
 		try {
@@ -60,7 +58,7 @@ public class SerialPort {
 
 
 	/**
-	 * 关闭串口
+	 * Close the serial port
 	 */
 	public void CloseDevice(){
 			close();

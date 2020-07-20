@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsbObservable{
-    private static boolean isRead = true;// 线程标志
+    private static boolean isRead = true;// Thread flag
     private static InputStream inputStream;
     private static OutputStream outputStream;
     private static int length = 0;
-    static  StringBuffer stringBuffer = new StringBuffer();
-    static SerialPort serialPort = new SerialPort();
-   static Observable usbObservableeee = new Usb();
+    private static  StringBuffer stringBuffer = new StringBuffer();
+    private static SerialPort serialPort = new SerialPort();
+    private static Observable usbObservableeee = new Usb();
     public static void open(final String address, final int baudrate){
         isRead = true;
         new Thread(new Runnable() {
@@ -32,7 +32,11 @@ public class UsbObservable{
                         serialPort.createSerialPort(address,baudrate);
                         inputStream = serialPort.getInputStream();
                         outputStream = serialPort.getOutputStream();
-                        usbObservableeee.usbTips("开启成功");
+                        usbObservableeee.usbTips("Successfully opened");
+                    }
+                    if (inputStream == null){
+                        usbObservableeee.usbTips("inputStream is empty. Check whether the serial port address is accurate.");
+                        continue;
                     }
                     try {
                         length = inputStream.available();
@@ -40,21 +44,21 @@ public class UsbObservable{
                             length = inputStream.read(bytes);
                             byte[]  dd = new byte[length];
                             System.arraycopy(bytes,0,dd,0,length);
-                            byteMerger(dd);
-
+                            usbObservableeee.notify(dd);
+//                            byteMerger(dd);
                         }else{
                             Thread.sleep(30);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-                        usbObservableeee.usbTips("串口异常"+e.getMessage());
+                        usbObservableeee.usbTips("Serial port exception"+e.getMessage());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        usbObservableeee.usbTips("串口异常"+e.getMessage());
+                        usbObservableeee.usbTips("Serial port exception"+e.getMessage());
                     }
                 }
                 usbObservableeee.close();
-                usbObservableeee.usbTips("关闭");
+                usbObservableeee.usbTips("shut down");
                 try {
                     inputStream.close();
                     outputStream.close();
@@ -71,7 +75,7 @@ public class UsbObservable{
     }
 
     /**
-     * 发送数据
+     * send data
      * @param buff
      */
     public static void writeData(byte[] buff){
@@ -86,38 +90,20 @@ public class UsbObservable{
     }
 
 
-    // 10k字节
+    // 10k byte
     private static byte[] buffByte = new byte[10240];
     private static int buffByteLength = 0;
     /**
-     * 字节拼接
+     * Byte splicing
      */
     private static void byteMerger(byte[] buff){
-        if (buff.length<2){
-            return;
-        }
-        if ((buffByteLength+buff.length)>  10240){
-            buffByteLength = 0;
-        }
-        System.arraycopy(buff,0,buffByte,buffByteLength,buff.length);
-        if ((buff[buff.length-1]=='\n')&&(buff[buff.length-2]=='\r')){
-            // 找到了二维码
-            buffByteLength+= buff.length;
-            // 去掉尾部
-            byte[] mergerByte = new byte[buffByteLength-2];
-            System.arraycopy(buffByte,0, mergerByte,0,buffByteLength-2);
-            usbObservableeee.notify(mergerByte);
 
-            buffByteLength = 0;
-        }else{
-            buffByteLength += buff.length;
-        }
+
     }
 
-    private static List<Observer> personList = new ArrayList<Observer>();//保存（观察者）的信息
 
     /**
-     * 订阅
+     * subscription
      * @param observer
      */
     public static void SubscribeOn(Observer observer){
@@ -125,11 +111,11 @@ public class UsbObservable{
     }
 
     /**
-     * 注销
+     * Logout
      */
-    public static void unRegisteredObserver(){
-        for (Observer observerr:personList){
-            usbObservableeee.remove(observerr);
+    public static void unRegisteredObserver(Observer observer){
+        if (observer!= null){
+            usbObservableeee.remove(observer);
         }
 
     }

@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Usb implements Observable {
-    private List<Observer> personList = new ArrayList<Observer>();//保存观察者的信息
+    private List<Observer> personList = new ArrayList<Observer>();//Save observer information
     @Override
     public void add(Observer observer) {
         personList.add(observer);

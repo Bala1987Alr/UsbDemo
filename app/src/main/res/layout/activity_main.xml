@@ -14,60 +14,67 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/qr_address"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:hint="输入地址"
-            android:text="dev/ttyXRUSB2"
-            android:layout_height="45dp" />
+            android:hint="Address"
+            android:text="dev/ttyXRUSB2" />
+
         <EditText
             android:id="@+id/qr_btl"
-            android:hint="输入波特率"
-            android:text="115200"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:layout_height="45dp" />
+            android:hint="Baud rate"
+            android:text="115200" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/qr_open"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="开启"
-            android:layout_height="45dp" />
+            android:text="Open" />
+
         <Button
             android:id="@+id/qr_close"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="关闭"
-            android:layout_height="45dp" />
+            android:text="Close" />
+
         <Button
             android:id="@+id/qr_clear"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="清屏"
-            android:layout_height="45dp" />
+            android:text="Clear" />
 
 
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:text="数据保存\t\t\t 请勾选下方保存格式,每刷一个码保存一条数据"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Data type" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <CheckBox
             android:id="@+id/qr_save_onoff"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="开"
-            android:layout_height="45dp" />
+            android:text="On/Off" />
         <CheckBox
             android:id="@+id/qr_save"
             android:layout_width="0dp"
@@ -88,20 +95,22 @@
             android:layout_height="45dp" />
 
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
-        android:text="自动发送   勾选下方自动发送,将自动发送数据"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Transfer data" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <CheckBox
             android:id="@+id/qr_auto_send"
             android:layout_width="0dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
-            android:text="开关"
-            android:layout_height="45dp" />
+            android:text="Auto Send" />
         <CheckBox
             android:id="@+id/qr_auto_one"
             android:layout_width="0dp"
@@ -121,25 +130,28 @@
             android:text="2000"
             android:layout_height="45dp" />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:gravity="center"
-        android:text="灯测试"
-        android:layout_height="45dp" />
+        android:text="Light test" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <CheckBox
             android:id="@+id/checkbox_buguangdeng"
             android:layout_width="wrap_content"
-            android:text="补光灯"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Fill Light" />
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:gravity="center"
-        android:text="接收"
-        android:layout_height="45dp" />
+        android:text="Data Received" />
         <TextView
             android:id="@+id/qr_content"
             android:scrollbars="vertical"
@@ -147,22 +159,20 @@
             android:scrollbarFadeDuration="200"
             android:layout_width="match_parent"
             android:layout_height="100dp" />
+
     <TextView
         android:layout_width="wrap_content"
+        android:layout_height="45dp"
         android:gravity="center"
-        android:text="发送"
-        android:layout_height="45dp" />
+        android:text="Send" />
+
     <EditText
         android:id="@+id/qr_send_content"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:hint="输入需要测试的字符串"
-        android:scrollbarFadeDuration="200"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fadeScrollbars="false"
+        android:hint="Enter text to be sent"
+        android:scrollbarFadeDuration="200"
+        android:scrollbars="vertical" />
 </LinearLayout>
-
-
-
-
 </LinearLayout>

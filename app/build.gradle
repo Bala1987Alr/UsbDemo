@@ -30,4 +30,8 @@ dependencies {
     implementation files('libs/jna-platform-5.2.0.jar')
     implementation files('libs/ChiceScanGun.jar')
     implementation project(path: ':serialmodule')
+
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
 }

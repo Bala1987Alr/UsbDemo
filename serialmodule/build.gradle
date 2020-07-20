@@ -25,7 +25,7 @@ android {
     }
     sourceSets {
         main {
-            // 将libs文件夹当成jniLibs文件夹
+            // Treat the libs folder as the jniLibs folder
             jniLibs.srcDirs = ['libs']
         }
     }
